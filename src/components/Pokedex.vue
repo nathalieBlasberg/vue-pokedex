@@ -1,29 +1,25 @@
 <template>
-  <div v-for="entry in pokeList">
-    <div>{{ entry }}</div>
+  <div v-if="isListAvailable" class="grid grid-cols-4 gap-4">
+    <PokemonListEntry
+      v-for="pokemon in pokemonList"
+      :key="pokemon.name"
+      :pokemonUrl="pokemon.url"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { type NamedAPIResource, type NamedAPIResourceList } from '@/const/api-resources.type';
+import { computed } from "vue";
+import type { NamedAPIResource } from "@/const/api-resources.type";
+import PokemonListEntry from "@/const/PokemonListEntry.vue";
 
-const pokeList = ref<NamedAPIResource[]>([]);
-const currentUrl = ref('https://pokeapi.co/api/v2/pokemon');
-const prevUrl = ref('');
-const nextUrl = ref('');
+interface props {
+  pokemonList: Array<NamedAPIResource>;
+}
 
-onMounted(() => {
-  const request = new Request(currentUrl.value, { method: 'GET'});
-  fetch(request)
-  .then((promise) => promise.json())
-  .then((data: NamedAPIResourceList) => {
-    pokeList.value = [...data.results];
-    prevUrl.value = data.previous;
-    nextUrl.value = data.next;
-  });
-})
+const props = defineProps<props>();
+
+const isListAvailable = computed(() => props.pokemonList.length > 0);
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>
