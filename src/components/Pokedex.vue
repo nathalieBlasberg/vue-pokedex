@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isListAvailable" class="grid grid-cols-4 gap-4">
+  <div v-if="isListAvailable" class="grid grid-cols-4 gap-4 mb-2">
     <PokemonListEntry
       v-for="pokemon in pokemonList"
       :key="pokemon.name"
@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import type { NamedAPIResource } from "@/const/api-resources.type";
-import PokemonListEntry from "@/const/PokemonListEntry.vue";
+import PokemonListEntry from "@/components/PokemonListEntry.vue";
 
 interface props {
   pokemonList: Array<NamedAPIResource>;

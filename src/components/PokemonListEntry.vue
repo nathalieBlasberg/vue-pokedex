@@ -46,8 +46,8 @@
 
 <script setup lang="ts">
 import { ref, onMounted, computed } from "vue";
-import { type Characteristic, type Pokemon } from "./api-resources.type";
-import { bgColorForType } from "./types.const";
+import { type Characteristic, type Pokemon } from "../const/api-resources.type";
+import { bgColorForType } from "../const/types.const";
 
 interface props {
   pokemonUrl: string;
@@ -88,7 +88,6 @@ function fetchPokemon(): void {
     .then((data) => data.json())
     .then((data: Pokemon) => {
       pokemon.value = data;
-      fetchCharacteristics();
     });
 }
 
